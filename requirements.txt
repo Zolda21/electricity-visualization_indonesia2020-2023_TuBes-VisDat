@@ -1,0 +1,55 @@
+# ============================================
+# Core Data Processing
+# ============================================
+pandas>=2.0.0
+numpy>=1.24.0
+
+# ============================================
+# Visualization Libraries
+# ============================================
+plotly>=5.14.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+kaleido>=0.2.1  # untuk export plotly ke PNG
+
+# ============================================
+# Geospatial Processing
+# ============================================
+geopandas>=0.13.0
+shapely>=2.0.0
+folium>=0.14.0
+branca>=0.6.0  # dependency folium
+
+# ============================================
+# Streamlit & Dashboard
+# ============================================
+streamlit>=1.28.0
+streamlit-folium>=0.15.0
+streamlit-option-menu>=0.3.6  # untuk navigasi lebih cantik
+
+# ============================================
+# Data Export & File Handling
+# ============================================
+openpyxl>=3.1.0  # untuk export Excel
+xlsxwriter>=3.1.0  # alternatif Excel writer
+
+# ============================================
+# Utilities
+# ============================================
+python-dotenv>=1.0.0  # untuk environment variables
+Pillow>=10.0.0  # untuk image processing (logo, etc)
+
+# ============================================
+# Testing & Development (Optional)
+# ============================================
+pytest>=7.4.0
+jupyter>=1.0.0
+ipykernel>=6.25.0
+nbformat>=5.9.0
+
+# ============================================
+# Additional Utilities
+# ============================================
+unidecode>=1.3.6  # untuk normalisasi karakter khusus (é → e)
+fuzzywuzzy>=0.18.0  # untuk fuzzy string matching nama provinsi
+python-Levenshtein>=0.21.0  # speed up fuzzywuzzy
