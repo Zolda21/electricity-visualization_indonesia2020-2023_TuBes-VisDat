@@ -38,12 +38,14 @@ def prepare_geojson(gdf: gpd.GeoDataFrame,
     gdf = gdf.copy()
     
     # Normalize kolom provinsi
-    if province_col in gdf.columns:
-        gdf[province_col] = gdf[province_col].str.strip().str.upper()
-        print(f"✅ Normalized {len(gdf)} provinces in GeoJSON")
-    else:
-        raise ValueError(f"Column '{province_col}' not found in GeoDataFrame!")
-    
+    if province_col not in gdf.columns:
+        raise ValueError(
+            f"GeoJSON INVALID ❌\n"
+            f"Expected column '{province_col}' not found.\n"
+            f"Available columns: {list(gdf.columns)}\n\n"
+            f"⚠️ Run geojson preprocessing first."
+        )
+
     return gdf
 
 
@@ -88,7 +90,7 @@ def add_geojson_names(df: pd.DataFrame,
 def merge_with_geojson(df: pd.DataFrame, 
                       gdf: gpd.GeoDataFrame,
                       csv_province_col: str = 'Province_GeoJSON',
-                      geo_province_col: str = 'Propinsi',
+                      geo_province_col: str = 'Province_std',
                       how: str = 'left') -> gpd.GeoDataFrame:
     """
     Merge data listrik dengan GeoJSON
@@ -111,7 +113,7 @@ def merge_with_geojson(df: pd.DataFrame,
     gpd.GeoDataFrame : Merged GeoDataFrame dengan data + geometri
     """
     # Prepare GeoJSON
-    gdf = prepare_geojson(gdf, province_col=geo_province_col)
+    gdf = prepare_geojson(gdf, geo_province_col)
     
     # Merge
     merged = gdf.merge(
@@ -237,13 +239,38 @@ def get_merge_statistics(df: pd.DataFrame,
     
     return stats
 
+def build_province_std(series: pd.Series) -> pd.Series:
+    return (
+        series
+        .str.upper()
+        .str.replace(r'\s+', ' ', regex=True)
+        .str.strip()
+    )
+
+def preprocess_geojson(
+    input_path: str,
+    output_path: str
+):
+    gdf = gpd.read_file(input_path)
+
+    if 'Propinsi' not in gdf.columns:
+        raise ValueError("GeoJSON missing 'Propinsi' column")
+
+    gdf['Province_std'] = build_province_std(gdf['Propinsi'])
+
+    gdf.to_file(output_path, driver='GeoJSON')
+
+    print("✅ GeoJSON standardized")
+    print(gdf[['Propinsi', 'Province_std']].drop_duplicates())
+
+    return gdf
 
 # Testing
 if __name__ == "__main__":
     print("=== Testing Geo Processing Module ===\n")
     
     # Example would require actual files
-    # gdf = gpd.read_file('data/raw/indonesia_provinces.geojson')
+    # gdf = gpd.read_file('data/raw/indonesia_provinces_std.geojson')
     # df = pd.read_csv('data/interim/combined_clean.csv')
     # df_mapped = add_geojson_names(df)
     # merged = merge_with_geojson(df_mapped, gdf)
