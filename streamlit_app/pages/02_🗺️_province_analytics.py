@@ -21,28 +21,15 @@ from src.utils.config import GEOJSON_PATH, REGION_MAPPING, REGIONS
 # Page config
 st.set_page_config(page_title="Province Analytics", page_icon="🗺️", layout="wide")
 
-# Custom CSS for interactivity
-st.markdown("""
-    <style>
-    .stButton>button {
-        width: 100%;
-        border-radius: 5px;
-        height: 3em;
-        background-color: #1f77b4;
-        color: white;
-    }
-    .stButton>button:hover {
-        background-color: #0d5a8f;
-        color: white;
-    }
-    .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 20px;
-        border-radius: 10px;
-        color: white;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Load global CSS
+def load_css():
+    """Load custom CSS from assets folder"""
+    css_file = Path(__file__).parent.parent / "assets" / "style.css"
+    if css_file.exists():
+        with open(css_file) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+load_css()
 
 # Load data
 @st.cache_data
@@ -204,7 +191,7 @@ def main():
             df=df_map_geo,
             gdf=gdf_base.copy(),
             csv_province_col='Province_GeoJSON',
-            geo_province_col='Propinsi',
+            geo_province_col='Province_std',
             how='left'
         )
         

@@ -31,27 +31,15 @@ from src.eda.explorations import (
 # Page config
 st.set_page_config(page_title="Yearly Trends", page_icon="📈", layout="wide")
 
-# Custom CSS
-st.markdown("""
-    <style>
-    .trend-up {
-        color: #2ca02c;
-        font-weight: bold;
-    }
-    .trend-down {
-        color: #d62728;
-        font-weight: bold;
-    }
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 24px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Load global CSS
+def load_css():
+    """Load custom CSS from assets folder"""
+    css_file = Path(__file__).parent.parent / "assets" / "style.css"
+    if css_file.exists():
+        with open(css_file) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+load_css()
 
 # Load data
 @st.cache_data
@@ -134,6 +122,10 @@ def main():
     
     # Filter data by year range
     df_filtered = df[(df['Year'] >= start_year) & (df['Year'] <= end_year)].copy()
+
+    # Pre-calculate untuk insights
+    fastest = get_fastest_growing_provinces(df, start_year, end_year, n=10)
+    national_trend = analyze_national_trend(df_filtered)
     
     # Create tabs for different views
     tab1, tab2, tab3, tab4 = st.tabs([
@@ -148,9 +140,6 @@ def main():
     # ============================================
     with tab1:
         st.markdown("### 📊 National Overview")
-        
-        # National trend
-        national_trend = analyze_national_trend(df_filtered)
         
         # KPIs
         col1, col2, col3, col4 = st.columns(4)

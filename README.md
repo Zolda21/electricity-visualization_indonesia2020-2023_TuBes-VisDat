@@ -4,7 +4,6 @@ Visualisasi interaktif dinamika konsumsi listrik 38 provinsi Indonesia periode 2
 
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## 📖 Tentang Proyek
 
@@ -90,11 +89,19 @@ electricity-visualization/
 │
 ├── streamlit_app/
 │   ├── app.py                 # Main landing page
-│   └── pages/
-│       ├── 01_📊_overview.py
-│       ├── 02_🗺️_province_analytics.py  🗺️
-│       ├── 03_📈_yearly_trends.py
-│       └── 04_📋_data_explorer.py
+│   ├── utils.py
+│   ├── pages/
+│   │   ├── 01_📊_overview.py
+│   │   ├── 02_🗺️_province_analytics.py  🗺️
+│   │   ├── 03_📈_yearly_trends.py
+│   │   └── 04_📋_data_explorer.py
+│   │
+│   ├── components/
+│   │   ├── filters.py
+│   │   └── metrics.py
+│   │
+│   └── assets/
+│       └── style.css
 │
 ├── scripts/                   # Testing & debugging scripts
 ├── reports/                   # Generated reports & figures
@@ -150,6 +157,22 @@ Dashboard ini menggunakan **GeoJSON** untuk visualisasi peta Indonesia:
 - ✅ Growth Rate Map (CAGR visualization)
 - ✅ Comparison Map (temporal comparison)
 
+## 🎨 Styling Architecture
+
+This project uses a **centralized CSS approach** for consistency:
+
+- **Global Styles**: `streamlit_app/assets/style.css`
+  - Single source of truth for all styling
+  - Loaded automatically on every page
+  
+- **Utility Functions**: `streamlit_app/utils.py`
+  - `load_css()`: Load global stylesheet
+  - `set_page_config()`: Standard page setup
+  
+- **No Inline CSS**: Pages use only global styles
+  - Ensures consistency
+  - Easier maintenance
+
 ## 🎓 Tim Pengembang
 
 **Kelompok Visualisasi Data - Teknik Informatika UMB**
@@ -185,21 +208,11 @@ streamlit run streamlit_app/app.py
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 🙏 Acknowledgments
 
 - Badan Pusat Statistik (BPS) untuk data
 - Universitas Muhammadiyah Bandung
 - BAKOSURTANAL untuk data GeoJSON 🗺️
-
-## 📞 Contact
-
-Untuk pertanyaan dan feedback, silakan hubungi:
-- Email: [your-email@example.com]
-- GitHub: [github.com/yourusername]
 
 ---
 

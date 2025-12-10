@@ -18,37 +18,36 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS
-st.markdown("""
-    <style>
-    .main-header {
-        font-size: 3rem;
-        font-weight: bold;
-        color: #1f77b4;
-        text-align: center;
-        padding: 2rem 0;
-    }
-    .sub-header {
-        font-size: 1.5rem;
-        color: #555;
-        text-align: center;
-        padding-bottom: 2rem;
-    }
-    .metric-card {
-        background-color: #f0f2f6;
-        padding: 1.5rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .info-box {
-        background-color: #e3f2fd;
-        padding: 1rem;
-        border-radius: 5px;
-        border-left: 4px solid #1f77b4;
-        margin: 1rem 0;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Load global CSS
+def load_css():
+    """Load custom CSS from assets folder"""
+    css_file = Path(__file__).parent / "assets" / "style.css"
+    
+    if css_file.exists():
+        with open(css_file) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    else:
+        # Fallback inline CSS if file not found
+        st.markdown("""
+            <style>
+            .main-header {
+                font-size: 3rem;
+                font-weight: bold;
+                color: #1f77b4;
+                text-align: center;
+                padding: 2rem 0;
+            }
+            .sub-header {
+                font-size: 1.5rem;
+                color: #555;
+                text-align: center;
+                padding-bottom: 2rem;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+# Apply CSS
+load_css()
 
 # Main page
 def main():
@@ -113,36 +112,36 @@ def main():
     with col1:
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color: #1f77b4; margin: 0;">🔌 Total Konsumsi 2023</h3>
+            <h3 style="margin: 0;">🔌 Total Konsumsi 2023</h3>
             <h2 style="margin: 10px 0;">~270K GWh</h2>
-            <p style="color: #666; margin: 0;">Naik dari 241K (2020)</p>
+            <p style="margin: 0;">Naik dari 241K (2020)</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color: #ff7f0e; margin: 0;">🏆 Provinsi Tertinggi</h3>
+            <h3 style="margin: 0;">🏆 Provinsi Tertinggi</h3>
             <h2 style="margin: 10px 0;">Jawa Barat</h2>
-            <p style="color: #666; margin: 0;">58,564 GWh (2023)</p>
+            <p style="margin: 0;">58,564 GWh (2023)</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color: #2ca02c; margin: 0;">📊 Growth Rate</h3>
+            <h3 style="margin: 0;">📊 Growth Rate</h3>
             <h2 style="margin: 10px 0;">+12.0%</h2>
-            <p style="color: #666; margin: 0;">CAGR 2020-2023</p>
+            <p style="margin: 0;">CAGR 2020-2023</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col4:
         st.markdown("""
         <div class="metric-card">
-            <h3 style="color: #d62728; margin: 0;">🗺️ Cakupan</h3>
+            <h3 style="margin: 0;">🗺️ Cakupan</h3>
             <h2 style="margin: 10px 0;">38 Provinsi</h2>
-            <p style="color: #666; margin: 0;">Seluruh Indonesia</p>
+            <p style="margin: 0;">Seluruh Indonesia</p>
         </div>
         """, unsafe_allow_html=True)
     

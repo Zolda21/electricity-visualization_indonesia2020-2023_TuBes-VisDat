@@ -29,29 +29,15 @@ from src.eda.statistics import (
 # Page config
 st.set_page_config(page_title="Data Explorer", page_icon="📋", layout="wide")
 
-# Custom CSS
-st.markdown("""
-    <style>
-    .dataframe-container {
-        border: 2px solid #1f77b4;
-        border-radius: 10px;
-        padding: 10px;
-    }
-    .filter-section {
-        background-color: #f0f2f6;
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
-    .stat-box {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Load global CSS
+def load_css():
+    """Load custom CSS from assets folder"""
+    css_file = Path(__file__).parent.parent / "assets" / "style.css"
+    if css_file.exists():
+        with open(css_file) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+load_css()
 
 # Load data
 @st.cache_data

@@ -1,343 +1,295 @@
 /* ============================================
-   Electricity Dashboard - Custom Styles
+   Electricity Dashboard - Enhanced Global Styles
+   Optimized for Streamlit Theme Support
    ============================================ */
 
 /* ============================================
-   GLOBAL STYLES
+   THEME VARIABLES (Auto-adapt to Light/Dark)
    ============================================ */
 
-/* Main app background */
-.main {
-    background-color: #f8f9fa;
+:root {
+    /* Light theme (default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Custom font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif;
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1f2937;
+        --bg-secondary: #111827;
+        --text-primary: #f9fafb;
+        --text-secondary: #d1d5db;
+        --border-color: #374151;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
 }
 
 /* ============================================
-   HEADER & TITLE
+   CUSTOM FONTS
    ============================================ */
 
-h1, h2, h3 {
-    font-weight: 700;
-    color: #1f2937;
-}
-
-.main-header {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #1f77b4;
-    text-align: center;
-    padding: 2rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.sub-header {
-    font-size: 1.5rem;
-    color: #6b7280;
-    text-align: center;
-    padding-bottom: 2rem;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
 /* ============================================
-   SIDEBAR
-   ============================================ */
-
-.css-1d391kg {  /* Sidebar */
-    background-color: #f3f4f6;
-}
-
-.sidebar .sidebar-content {
-    background-color: #ffffff;
-}
-
-/* Sidebar headers */
-.sidebar h2, .sidebar h3 {
-    color: #1f77b4;
-    border-bottom: 2px solid #1f77b4;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-/* ============================================
-   BUTTONS
+   BUTTONS - Enhanced Interactive Style
    ============================================ */
 
 .stButton > button {
     width: 100%;
     border-radius: 8px;
     height: 3em;
-    background-color: #1f77b4;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     font-weight: 600;
     border: none;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
 }
 
 .stButton > button:hover {
-    background-color: #0d5a8f;
+    background: linear-gradient(135deg, #5568d3 0%, #6b3f8f 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
 .stButton > button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
 }
 
-/* Primary button */
+/* Primary button variant */
 .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
 }
 
 .stButton > button[kind="primary"]:hover {
-    background: linear-gradient(135deg, #5568d3 0%, #6b3f8f 100%);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
 }
 
 /* ============================================
-   METRICS & KPI CARDS
+   METRICS - Enhanced with Gradient Borders
    ============================================ */
 
 .stMetric {
-    background-color: white;
+    background: var(--bg-primary);
     padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.stMetric::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stMetric:hover::before {
+    opacity: 1;
 }
 
 .stMetric:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-}
-
-.stMetric label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.stMetric [data-testid="stMetricValue"] {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1f2937;
-}
-
-.stMetric [data-testid="stMetricDelta"] {
-    font-size: 0.9rem;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
 }
 
 /* ============================================
-   CUSTOM METRIC CARDS
+   CUSTOM METRIC CARDS - Glassmorphism Style
    ============================================ */
 
 .metric-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
     color: white;
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .metric-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
 }
 
 .metric-card h3 {
-    color: white;
+    color: rgba(255, 255, 255, 0.95);
     margin-bottom: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
+    font-weight: 600;
 }
 
 .metric-card h2 {
     color: white;
     margin: 10px 0;
     font-size: 2.5rem;
+    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .metric-card p {
-    color: rgba(255,255,255,0.9);
+    color: rgba(255, 255, 255, 0.85);
     margin: 0;
     font-size: 0.9rem;
 }
 
 /* ============================================
-   INFO BOXES
+   STAT BOXES - Animated Gradient
+   ============================================ */
+
+.stat-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+    color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.stat-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+}
+
+/* ============================================
+   INFO BOXES - Modern Alert Style
    ============================================ */
 
 .info-box {
-    background-color: #e3f2fd;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
     padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #1f77b4;
+    border-radius: 12px;
+    border-left: 4px solid #3b82f6;
     margin: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 .success-box {
-    background-color: #d4edda;
-    border-left-color: #28a745;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+    border-left-color: #10b981;
 }
 
 .warning-box {
-    background-color: #fff3cd;
-    border-left-color: #ffc107;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+    border-left-color: #fbbf24;
 }
 
 .danger-box {
-    background-color: #f8d7da;
-    border-left-color: #dc3545;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+    border-left-color: #ef4444;
 }
 
 /* ============================================
-   DATAFRAMES & TABLES
+   DATAFRAMES - Enhanced Table Style
    ============================================ */
 
 .dataframe-container {
-    border: 2px solid #1f77b4;
+    border: 2px solid transparent;
     border-radius: 12px;
     padding: 15px;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-/* Streamlit dataframe styling */
-.stDataFrame {
-    border-radius: 8px;
+    background: var(--bg-primary);
+    box-shadow: 0 4px 16px var(--shadow-color);
+    position: relative;
     overflow: hidden;
 }
 
-.stDataFrame table {
-    border-collapse: collapse;
-}
-
-.stDataFrame thead {
-    background-color: #1f77b4;
-    color: white;
-}
-
-.stDataFrame thead th {
-    padding: 12px;
-    font-weight: 600;
-    text-align: left;
-}
-
-.stDataFrame tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
-.stDataFrame tbody tr:hover {
-    background-color: #e9ecef;
-}
-
-.stDataFrame tbody td {
-    padding: 10px 12px;
+.dataframe-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
 }
 
 /* ============================================
-   TABS
+   TABS - Modern Tab Design
    ============================================ */
 
 .stTabs [data-baseweb="tab-list"] {
-    gap: 24px;
+    gap: 8px;
     background-color: transparent;
+    padding: 0.5rem;
 }
 
 .stTabs [data-baseweb="tab"] {
     height: 50px;
     padding: 0 24px;
-    background-color: white;
-    border-radius: 8px 8px 0 0;
+    background: var(--bg-secondary);
+    border-radius: 12px;
     font-weight: 600;
-    color: #6b7280;
+    color: var(--text-secondary);
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 2px solid transparent;
 }
 
 .stTabs [data-baseweb="tab"]:hover {
-    background-color: #f3f4f6;
-    color: #1f77b4;
+    background: var(--bg-primary);
+    color: #667eea;
+    border-color: rgba(102, 126, 234, 0.3);
 }
 
 .stTabs [aria-selected="true"] {
-    background-color: #1f77b4 !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     color: white !important;
-}
-
-/* Tab content */
-.stTabs [data-baseweb="tab-panel"] {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-color: transparent !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 /* ============================================
-   FILTERS & INPUTS
+   FILTERS - Enhanced Input Style
    ============================================ */
 
 .filter-section {
-    background-color: #f3f4f6;
+    background: var(--bg-secondary);
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
-    border: 1px solid #e5e7eb;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
 }
 
-/* Select boxes */
-.stSelectbox > div > div {
-    border-radius: 8px;
-    border-color: #d1d5db;
-}
-
-.stSelectbox > div > div:focus-within {
-    border-color: #1f77b4;
-    box-shadow: 0 0 0 1px #1f77b4;
-}
-
-/* Multi-select */
-.stMultiSelect > div > div {
-    border-radius: 8px;
-}
-
-/* Sliders */
-.stSlider > div > div > div {
-    background-color: #1f77b4;
-}
-
-/* Text input */
-.stTextInput > div > div > input {
-    border-radius: 8px;
-    border-color: #d1d5db;
-}
-
-.stTextInput > div > div > input:focus {
-    border-color: #1f77b4;
-    box-shadow: 0 0 0 1px #1f77b4;
-}
-
-/* ============================================
-   PLOTLY CHARTS
-   ============================================ */
-
-.js-plotly-plot {
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    background-color: white;
-    padding: 10px;
+.filter-section:hover {
+    border-color: rgba(102, 126, 234, 0.5);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
 }
 
 /* ============================================
@@ -346,107 +298,108 @@ h1, h2, h3 {
 
 .trend-up {
     color: #10b981;
-    font-weight: bold;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
 }
 
 .trend-down {
     color: #ef4444;
-    font-weight: bold;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
 }
 
 .trend-neutral {
     color: #6b7280;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 /* ============================================
-   STAT BOXES
+   SIDEBAR - Enhanced Style
    ============================================ */
 
-.stat-box {
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+}
+
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: transparent;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* ============================================
+   PLOTLY CHARTS - Enhanced Container
+   ============================================ */
+
+.js-plotly-plot {
     border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    background: var(--bg-primary);
+    padding: 10px;
+    transition: all 0.3s ease;
 }
 
-.stat-box:hover {
-    transform: translateY(-5px);
-}
-
-.stat-box h3 {
-    color: white;
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-.stat-box h2 {
-    color: white;
-    margin: 10px 0;
-    font-size: 2rem;
+.js-plotly-plot:hover {
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
 }
 
 /* ============================================
-   DOWNLOAD BUTTONS
+   SCROLLBAR - Custom Style
    ============================================ */
 
-.stDownloadButton > button {
-    background-color: #10b981;
-    color: white;
-    border-radius: 8px;
-    font-weight: 600;
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
 }
 
-.stDownloadButton > button:hover {
-    background-color: #059669;
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #6b3f8f 100%);
 }
 
 /* ============================================
-   EXPANDERS
+   ANIMATIONS
    ============================================ */
 
-.streamlit-expanderHeader {
-    background-color: #f3f4f6;
-    border-radius: 8px;
-    font-weight: 600;
-    color: #1f2937;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.streamlit-expanderHeader:hover {
-    background-color: #e5e7eb;
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
 }
 
-/* ============================================
-   LOADING SPINNER
-   ============================================ */
-
-.stSpinner > div {
-    border-top-color: #1f77b4 !important;
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
 }
 
-/* ============================================
-   ALERTS
-   ============================================ */
-
-.stAlert {
-    border-radius: 8px;
-    border-left-width: 4px;
-}
-
-/* ============================================
-   FOOTER
-   ============================================ */
-
-.footer {
-    text-align: center;
-    padding: 2rem 0;
-    color: #6b7280;
-    font-size: 0.9rem;
-    border-top: 1px solid #e5e7eb;
-    margin-top: 3rem;
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
 }
 
 /* ============================================
@@ -454,66 +407,13 @@ h1, h2, h3 {
    ============================================ */
 
 @media (max-width: 768px) {
-    .main-header {
-        font-size: 2rem;
-    }
-    
-    .sub-header {
-        font-size: 1.2rem;
-    }
-    
-    .metric-card h2 {
+    .metric-card h2,
+    .stat-box h2 {
         font-size: 1.8rem;
     }
-}
-
-/* ============================================
-   SCROLLBAR STYLING
-   ============================================ */
-
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #1f77b4;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #0d5a8f;
-}
-
-/* ============================================
-   ANIMATION CLASSES
-   ============================================ */
-
-.fade-in {
-    animation: fadeIn 0.5s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.slide-up {
-    animation: slideUp 0.5s ease-out;
-}
-
-@keyframes slideUp {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
+    
+    .stTabs [data-baseweb="tab"] {
+        padding: 0 12px;
+        font-size: 0.9rem;
     }
 }
